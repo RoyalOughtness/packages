@@ -52,7 +52,8 @@ jobs:
         id: srpm_build
         run: |
           dnf update -y
-          dnf install git wget rpmbuild yum-utils rpm-sign -y
+          dnf install git wget rpmbuild yum-utils rpm-sign rpmdevtools -y
+          spectool -g -R --define "_sourcedir $PWD" mesa.spec
           git clone --branch "fedora-43" https://github.com/negativo17/mesa.git
           mv mesa/* .
           rpmbuild -bs -v --define "_sourcedir $PWD" --define "_rpmdir $PWD" --define "_builddir $PWD" --define "_specdir $PWD" --define "_srcrpmdir $PWD" mesa.spec
