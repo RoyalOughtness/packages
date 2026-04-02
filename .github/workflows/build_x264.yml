@@ -54,8 +54,10 @@ jobs:
           dnf update -y
           dnf install git wget rpmbuild yum-utils rpm-sign rpmdevtools -y
           git clone --branch "fedora-43" https://github.com/negativo17/x264.git
-          mv x264/* .
+          cd x264
           bash x264-snapshot.sh
+          cd ..
+          mv x264/* .
           rpmbuild -bs -v --define "_sourcedir $PWD" --define "_rpmdir $PWD" --define "_builddir $PWD" --define "_specdir $PWD" --define "_srcrpmdir $PWD" x264.spec
           SRPM_HASH=$(sha256sum *.rpm)
           echo "SRPM_HASH: ${SRPM_HASH}"
