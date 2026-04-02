@@ -53,8 +53,6 @@ jobs:
         run: |
           dnf update -y
           dnf install git wget rpmbuild yum-utils rpm-sign -y
-          SOURCE_CACHE_HASH=$(sha256sum /usr/src/chromium/chromium-*.xz)
-          echo "SOURCE_CACHE_HASH: ${SOURCE_CACHE_HASH}"
           git clone --branch "fedora-43" https://github.com/negativo17/mesa.git
           mv mesa/* .
           rpmbuild -bs -v --define "_sourcedir $PWD" --define "_rpmdir $PWD" --define "_builddir $PWD" --define "_specdir $PWD" --define "_srcrpmdir $PWD" trivalent.spec
